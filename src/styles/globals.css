@@ -2,26 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+body,
+div {
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+body::-webkit-scrollbar,
+div::-webkit-scrollbar {
+    width: 12px !important;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+body::-webkit-scrollbar-track,
+div::-webkit-scrollbar-track {
+    background: white;
 }
+
+body::-webkit-scrollbar-thumb,
+div::-webkit-scrollbar-thumb {
+    background-color: rgb(217, 46, 21);
+    border-radius: 20px;
+    border: 3px solid white;
+}
+
+.wrapper-container {
+    width: 100%;
+}
+
+.shadow_text {
+    text-shadow: 1px 1px 1px red;
+}
+
+@layer components {
+    .nav_link {
+        @apply text-slate-50 hover:text-red-300 text-xl
+    }
+
+    .input {
+        @apply w-full rounded bg-[#333] px-5 py-4  placeholder-[gray] outline-none focus:bg-[#454545]
+    }
+}
+
