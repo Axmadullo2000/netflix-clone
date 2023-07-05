@@ -48,8 +48,9 @@ function UseAuth() {
 
         signOut(auth)
             .then(() => {
-                setUser(null)
                 router.push('/auth')
+                setUser(null)
+                setIsLoading(true)
             })
             .catch(error => setError(error.message))
             .finally(() => setIsLoading(false))

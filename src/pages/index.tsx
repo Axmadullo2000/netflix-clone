@@ -5,9 +5,15 @@ import {IMovies} from "@/interfaces/app.interface";
 import {API_REQUEST} from "@/services/api.service";
 
 import {Header, Hero, Row} from './components'
+import {useContext} from "react";
+import {AuthContext} from "@/context/auth.context";
 
 
 export default function Home({trending, tv, tvTop, popular}: HomeProps) {
+    const {isLoading} = useContext(AuthContext)
+
+    if (isLoading) return null
+
 
     return (
       <div className={'relative'}>

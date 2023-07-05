@@ -3,15 +3,28 @@ import Head from "next/head";
 import Image from "next/image";
 import { Form, Formik } from "formik";
 import * as Yup from 'yup'
+import {useRouter} from "next/router";
 
 
 import TextField from "src/pages/components/TextField";
 import {AuthContext} from "@/context/auth.context";
 
 
+
 function Auth() {
     const [auth, setAuth] = useState<'signup' | 'signin'>('signin')
     const {isLoading, user, error, signIn, signUp, logout} = useContext(AuthContext)
+    const router = useRouter()
+
+    if (user) {
+        router.push('/')
+    }
+
+    if (!isLoading) {
+        return <p>Loading...</p>
+    }
+
+
 
     const toggleAuth = (state: 'signup' | 'signin') => {
         setAuth(state)
@@ -35,6 +48,8 @@ function Auth() {
             signUp(formData.email, formData.password)
         }
     }
+
+
 
 
     return (
