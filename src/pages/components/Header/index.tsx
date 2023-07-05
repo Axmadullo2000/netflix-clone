@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Image from "next/image";
 import {BsSearch} from "react-icons/bs";
 import {BiBell} from "react-icons/bi";
 import {CiUser} from "react-icons/ci";
 import Link from "next/link";
+import {IoExitOutline} from "react-icons/io5";
+import {AuthContext} from "@/context/auth.context";
 
 
 function Header() {
+    const {logout} = useContext(AuthContext)
+
     return (
         <header className={'flex justify-between p-4'}>
             <div className={'flex items-center gap-4'}>
@@ -34,6 +38,11 @@ function Header() {
                     <Link href={'account'}>
                         <CiUser className={'h-8 w-8 cursor-pointer'} color={'white'} />
                     </Link>
+                </li>
+                <li>
+                    <button onClick={logout}>
+                        <IoExitOutline className={'h-8 w-8 cursor-pointer'} color={'white'} />
+                    </button>
                 </li>
             </ul>
         </header>
