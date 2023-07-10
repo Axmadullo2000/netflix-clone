@@ -1,11 +1,11 @@
 import {createContext, ReactNode, useEffect, useMemo, useState} from "react"
-
+import {useRouter} from "next/router";
 import {onAuthStateChanged, User} from "firebase/auth";
 
+
 import useAuth from "@/hooks/useAuth";
-import {router} from "next/client";
 import {auth} from "@/firebase";
-import {useRouter} from "next/router";
+
 
 interface AuthContextState {
     user: User | null;
@@ -48,6 +48,7 @@ const AuthContextProvider = ({children}: {children: ReactNode}) => {
                     setUser(user)
                 }else {
                     router.push('/auth')
+                    setIsLoading(true)
                     setUser(null)
                 }
 
@@ -61,5 +62,4 @@ const AuthContextProvider = ({children}: {children: ReactNode}) => {
 }
 
 export default AuthContextProvider
-
 

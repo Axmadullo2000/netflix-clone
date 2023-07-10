@@ -16,11 +16,11 @@ function Header() {
             <div className={'flex items-center gap-4'}>
                 <Image src={'/logo.png'} alt={'logo'} width={56} height={56} />
                 <ul className={'flex flex-col md:flex-row gap-6'}>
-                    <li className={'cursor-pointer nav_link shadow_text'}>Домой</li>
-                    <li className={'cursor-pointer nav_link shadow_text'}>Фильмы</li>
-                    <li className={'cursor-pointer nav_link shadow_text'}>ТВ Шоу</li>
-                    <li className={'cursor-pointer nav_link shadow_text'}>Новые фильмы</li>
-                    <li className={'cursor-pointer nav_link shadow_text'}>Популярные фильмы</li>
+                    <li className={'cursor-pointer nav_link shadow_text'}>Home</li>
+                    <li className={'cursor-pointer nav_link shadow_text'}>Movies</li>
+                    <li className={'cursor-pointer nav_link shadow_text'}>TV Shows</li>
+                    <li className={'cursor-pointer nav_link shadow_text'}>New Films</li>
+                    <li className={'cursor-pointer nav_link shadow_text'}>Popular Films</li>
                 </ul>
             </div>
 

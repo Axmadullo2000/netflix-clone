@@ -13,5 +13,12 @@ export interface IMovies {
     first_air_date: string,
     video: boolean,
     vote_average: number,
-    vote_count: number
+    vote_count: number,
+    original_language: 'en'
 }
+
+export interface Element {
+    type: "Trailer",
+    original_language: 'en'
+}
+

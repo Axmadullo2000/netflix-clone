@@ -1,18 +1,22 @@
 import Head from "next/head";
 import {GetServerSideProps} from "next";
+import {useContext} from "react";
+
 
 import {IMovies} from "@/interfaces/app.interface";
 import {API_REQUEST} from "@/services/api.service";
-
-import {Header, Hero, Row} from './components'
-import {useContext} from "react";
+import {Header, Hero, Row, Modal} from './components'
 import {AuthContext} from "@/context/auth.context";
+import {userInfoState} from "@/store";
 
 
-export default function Home({trending, tv, tvTop, popular}: HomeProps) {
-    const {isLoading} = useContext(AuthContext)
+export default function Home({trending, tv}: HomeProps) {
+    const {modal} = userInfoState()
 
-    if (isLoading) return null
+    const {isLoading, user} = useContext(AuthContext)
+
+
+    if (isLoading) return <p>Loading...</p>
 
 
     return (
@@ -28,14 +32,13 @@ export default function Home({trending, tv, tvTop, popular}: HomeProps) {
             <Header />
             <main className={''}>
                 <Hero trending={trending} />
-
                 <section>
-                    <Row movies={tv} title={'ТВ Передачи'} isBig={false}/> {/* tv shows */}
-                    <Row movies={tvTop} title={'Популярные передачи'} isBig={true} /> {/* tv shows */}
-                    <Row movies={popular} title={'Популярные фильмы'} isBig={true} /> {/* tv shows */}
-                    <Row movies={tv} title={'ТВ Передачи'} isBig={true}/> {/* tv shows */}
+                    <Row movies={tv} title={'TV '} isBig={false}/> {/* tv shows */}
+                    <Row movies={tv} title={'TV'} isBig={true}/> {/* tv shows */}
                 </section>
             </main>
+
+            {modal && <Modal />}
         </div>
       </div>
   )
@@ -43,26 +46,20 @@ export default function Home({trending, tv, tvTop, popular}: HomeProps) {
 
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-    const [trending, tv, popular, tvTop] = await Promise.all([
+    const [trending, tv] = await Promise.all([
         fetch(API_REQUEST.trending).then(res => res.json()),
         fetch(API_REQUEST.tv).then(res => res.json()),
-        fetch(API_REQUEST.popular).then(res => res.json()),
-        fetch(API_REQUEST.tvTop).then(res => res.json()),
     ])
 
     return {
         props: {
             trending: trending.results,
-            tv: tv.results,
-            popular: popular.results,
-            tvTop: tvTop.results,
+            tv: tv.results
         }
     }
 }
 
 interface HomeProps {
     trending: IMovies[],
-    tv: IMovies[],
-    popular: IMovies[],
-    tvTop: IMovies[]
+    tv: IMovies[]
 }

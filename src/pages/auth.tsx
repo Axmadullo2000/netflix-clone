@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import {useRouter} from "next/router";
 
 
-import TextField from "src/pages/components/TextField";
+import {TextField} from "src/pages/components";
 import {AuthContext} from "@/context/auth.context";
 
 
@@ -18,10 +18,9 @@ function Auth() {
 
     if (user) {
         router.push('/')
-    }
-
-    if (!isLoading) {
-        return <p>Loading...</p>
+        if (!isLoading) {
+            return <p>Loading...</p>
+        }
     }
 
 
