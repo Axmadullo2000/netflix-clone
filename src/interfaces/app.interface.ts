@@ -22,3 +22,16 @@ export interface Element {
     original_language: 'en'
 }
 
+
+export interface Products {
+    id: string,
+    images: string[],
+    default_price: {
+        id: string,
+        unit_amount: number
+    },
+    metadata: {
+        metadata: string
+    }
+    name: string,
+}

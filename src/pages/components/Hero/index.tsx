@@ -36,7 +36,7 @@ function Hero({trending}: HeroProps) {
                     className={'object-cover'} fill />
             </div>
 
-            <p className={'text-slate-100 bg-black w-[140px] h-[50px] text-2xl flex justify-center items-center border-2 border-red rounded-2xl'}>{movie?.media_type}</p>
+            <p className={'text-slate-100 bg-black w-[120px] py-1 text-2xl flex justify-center items-center border-2 border-red rounded-2xl'}>{movie?.media_type}</p>
             <ReactStars count={10} value={count} edit={false} size={24} color1={'white'} color2={'yellow'} />
             <h1 className={'text-3xl text-slate-100 font-bold md:text-4xl lg:text-5xl shadow_text'}>{movie?.name || movie?.title}</h1>
             <p className={'max-w-xs text-slate-100 md:max-w-lg lg:max-w-2xl text-xl text-shadow-md shadow_text md:text-lg lg:text-2xl'}>{<>{movie?.overview?.slice(0, 60)}...</>}</p>

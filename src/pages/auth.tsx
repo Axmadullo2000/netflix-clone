@@ -10,7 +10,6 @@ import {TextField} from "src/pages/components";
 import {AuthContext} from "@/context/auth.context";
 
 
-
 function Auth() {
     const [auth, setAuth] = useState<'signup' | 'signin'>('signin')
     const {isLoading, user, error, signIn, signUp, logout} = useContext(AuthContext)
@@ -22,8 +21,6 @@ function Auth() {
             return <p>Loading...</p>
         }
     }
-
-
 
     const toggleAuth = (state: 'signup' | 'signin') => {
         setAuth(state)
@@ -40,10 +37,20 @@ function Auth() {
             .required('Обязательна к заполнению'),
     })
 
-    const onSubmit = (formData: {email: string, password: string}) => {
+    const onSubmit = async (formData: {email: string, password: string}) => {
         if (auth === 'signin') {
             signIn(formData.email, formData.password)
         }else {
+            const response = await fetch('/api/customers', {
+                method: "POST",
+                headers: {"Content-type": "application/json"},
+                body: JSON.stringify({email: formData.email})
+            })
+
+            const data = await response.json()
+
+            console.log(data)
+
             signUp(formData.email, formData.password)
         }
     }

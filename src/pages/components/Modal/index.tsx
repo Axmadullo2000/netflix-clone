@@ -56,7 +56,7 @@ function Modal() {
                     />
                 </div>
 
-                <div className={'pl-8 pt-8 h-[45%] text-xl w-full bg-black'}>
+                <div className={'pl-8 pt-8 h-[50%] text-xl w-full bg-black'}>
                     <div className={'flex gap-2'}>
                         <p className={'text-green-600'}>{Math.floor(currentMovie?.vote_average * 10)}% Match</p>
                         <p className={'text-slate-100'}>{currentMovie?.release_date}</p>

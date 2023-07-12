@@ -8,7 +8,7 @@ const nextConfig = {
     NEXT_PUBLIC_API_KEY: process.env.NEXT_PUBLIC_API_KEY
   },
   images: {
-    domains: ['image.tmdb.org', 'files.stripe.com', 'rb.gy']
+    domains: ['image.tmdb.org', 'files.stripe.com', 'rb.gy', 'img.freepik.com']
   }
 }
 
