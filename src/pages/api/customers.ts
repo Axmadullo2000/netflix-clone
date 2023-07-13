@@ -14,10 +14,10 @@ export default async function handler(
     res: NextApiResponse<Data>
 ) {
     const {method} = req
-    const {email} = req.body
 
     if (method === 'POST') {
         try {
+            const {email} = req.body
             const stripe = require('stripe')('sk_test_51NSetQBKDAx00Tu4mvUw10OauUj3SvTCJG32YtuW1ecSavlF76rSCWe4uKKEwuPFbi7HzLsrCOLfXeVD8IvP74E600CrsDnTxl');
 
             await stripe.customers.create({

@@ -16,13 +16,18 @@ export default async function handler(
   const {method} = req
 
   if (method === 'GET') {
-    const stripe = require('stripe')('sk_test_51NSetQBKDAx00Tu4mvUw10OauUj3SvTCJG32YtuW1ecSavlF76rSCWe4uKKEwuPFbi7HzLsrCOLfXeVD8IvP74E600CrsDnTxl')
+    try {
+      const stripe = require('stripe')('sk_test_51NSetQBKDAx00Tu4mvUw10OauUj3SvTCJG32YtuW1ecSavlF76rSCWe4uKKEwuPFbi7HzLsrCOLfXeVD8IvP74E600CrsDnTxl')
 
-    const products = await stripe.products.list({
-      expand: ['data.default_price']
-    })
+      const products = await stripe.products.list({
+        expand: ['data.default_price']
+      })
 
       res.status(200).json(products)
+    }catch (e) {
+      const error = e as Error
+      res.status(400).json({message: error.message})
+    }
   }
 
   else {

@@ -1,16 +1,36 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Image from "next/image";
 import {RiVipCrown2Line} from "react-icons/ri";
 import {CgSandClock} from "react-icons/cg";
 import {PiVideoBold} from "react-icons/pi";
 
 import {PlanCardProps} from "@/pages/components/Plan-Card/plan-card.props";
+import {AuthContext} from "@/context/auth.context";
 
 
 function PlanCard({product}: PlanCardProps) {
-    const [buy, setBuy] = useState(true)
+    const [buy, setBuy] = useState<boolean>(true)
+    const {user} = useContext(AuthContext)
+
+
+    const onSubmitSubscription = async (priceId: string) => {
+        const payload = {email: user?.email, priceId}
+        const response = await fetch('/api/subscription', {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(payload)
+        })
+
+        const data = await response.json()
+
+        window.open(data.subscription.url)
+
+        console.log(data)
+    }
+
 
     const onSubmit = () => {
+        onSubmitSubscription(product?.default_price.id)
         setTimeout(() => {
             setBuy(true)
         }, 1500)
