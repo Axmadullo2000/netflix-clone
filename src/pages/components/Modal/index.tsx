@@ -11,11 +11,8 @@ function Modal() {
     const {modal, setModal, currentMovie} = userInfoState()
     const [trailer, setTrailer] = useState<string>('')
 
-    const base_url = process.env.NEXT_PUBLIC_DOMAIN as string
-    const api_key = process.env.NEXT_PUBLIC_API_KEY as string
 
-
-    const api = `${base_url}/${currentMovie.media_type === 'tv' ? 'tv' : 'movie'}/${currentMovie.id}/videos?api_key=${api_key}`
+    const api = `https://api.themoviedb.org/3/${currentMovie.media_type === 'tv' ? 'tv' : 'movie'}/${currentMovie.id}/videos?api_key=9dcd6d2cd8af29cf72b7047e139de240`
 
     const handleClose = () => {
         setModal(false)
@@ -36,7 +33,7 @@ function Modal() {
     //     eslint-disable-next-line
     })
 
-    console.log(currentMovie)
+    console.log(trailer)
 
     return (
         <MuiModal

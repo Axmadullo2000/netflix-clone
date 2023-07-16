@@ -10,6 +10,8 @@ import {
 
 import {auth} from 'src/firebase'
 
+import Cookies from "js-cookie";
+
 
 function UseAuth() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -24,9 +26,18 @@ function UseAuth() {
         await createUserWithEmailAndPassword(auth, email, password)
             .then(res => {
                 setUser(res.user)
+
+                fetch('/api/customers', {
+                    method: "POST",
+                    headers: {"Content-type": "application/json"},
+                    body: JSON.stringify({email: res.user.email, token: res.user.uid})
+                })
+
+                Cookies.set("token", res.user.uid)
                 router.push('/')
                 setIsLoading(true)
-            }).catch(error => setError(error.message))
+            })
+            .catch(error => setError(error.message))
             .finally(() => setIsLoading(false))
     }
 
@@ -36,6 +47,7 @@ function UseAuth() {
         await signInWithEmailAndPassword(auth, email, password)
             .then(res => {
                 setUser(res.user)
+                Cookies.set("token", res.user.uid)
                 router.push('/')
                 setIsLoading(true)
             })
@@ -48,8 +60,9 @@ function UseAuth() {
 
         signOut(auth)
             .then(() => {
-                router.push('/auth')
                 setUser(null)
+                Cookies.remove("token")
+                router.push('/auth')
                 setIsLoading(true)
             })
             .catch(error => setError(error.message))
@@ -62,4 +75,5 @@ function UseAuth() {
 }
 
 export default UseAuth
+
 

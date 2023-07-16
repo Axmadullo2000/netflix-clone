@@ -1,27 +1,28 @@
 import Head from "next/head";
 import {GetServerSideProps} from "next";
+import Cookies from "js-cookie";
 import {useContext} from "react";
 
 
 import {IMovies, Products} from "@/interfaces/app.interface";
-import {API_REQUEST} from "@/services/api.service";
-import {Header, Hero, Row, Modal} from './components'
-import {AuthContext} from "@/context/auth.context";
+import {Header, Hero, Row, Modal} from './components';
 import {userInfoState} from "@/store";
 import SubscriptionList from "@/pages/components/SubscriptionList";
+import {AuthContext} from "@/context/auth.context";
+import {useRouter} from "next/router";
 
 
-export default function Home({trending, tv, products}: HomeProps) {
+export default function Home({trending, tv, products,subscription}: HomeProps) {
     const {modal} = userInfoState()
-    const subscription = false
+    const {user} = useContext(AuthContext)
+    const router = useRouter()
 
-    const {isLoading, user} = useContext(AuthContext)
-
-    if (!subscription) return <SubscriptionList products={products} />
+    if (!subscription.length) return <SubscriptionList products={products} />
 
 
-    if (isLoading) return <p>Loading...</p>
-
+    if (!Cookies.get("token") && !user?.uid) {
+        router.push('/auth')
+    }
 
     return (
       <div className={'relative'}>
@@ -49,25 +50,32 @@ export default function Home({trending, tv, products}: HomeProps) {
 }
 
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-    const [trending, tv, products] = await Promise.all([
+export const getServerSideProps: GetServerSideProps<HomeProps> = async ({req}) => {
+    const token = req.cookies.user_id
+
+
+    const [trending, tv, products, subscription] = await Promise.all([
         fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=81602ea33120c8e6b0c0454800142742').then(res => res.json()),
         fetch('https://api.themoviedb.org/3/trending/tv/day?api_key=81602ea33120c8e6b0c0454800142742').then(res => res.json()),
-        fetch(API_REQUEST.products).then(res => res.json())
+        fetch('http://localhost:3000/api/products').then(res => res.json()),
+        fetch(`http://localhost:3000/api/subscription/${token}`).then(res => res.json())
     ])
 
     return {
         props: {
             trending: trending.results,
             tv: tv.results,
-            products: products.data
+            products: products.products.data,
+            subscription: subscription.subscription.data
         }
     }
 }
 
+
 interface HomeProps {
     trending: IMovies[],
     tv: IMovies[],
-    products: Products[]
+    products: Products[],
+    subscription: string[]
 }
 

@@ -1,26 +1,24 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Head from "next/head";
 import Image from "next/image";
 import { Form, Formik } from "formik";
 import * as Yup from 'yup'
-import {useRouter} from "next/router";
+import {GetServerSideProps} from "next";
 
 
 import {TextField} from "src/pages/components";
 import {AuthContext} from "@/context/auth.context";
+import {useRouter} from "next/router";
+import Cookies from "js-cookie";
 
 
-function Auth() {
+
+export default function Auth() {
     const [auth, setAuth] = useState<'signup' | 'signin'>('signin')
-    const {isLoading, user, error, signIn, signUp, logout} = useContext(AuthContext)
-    const router = useRouter()
+    const {isLoading, error, signIn, signUp} = useContext(AuthContext)
 
-    if (user) {
-        router.push('/')
-        if (!isLoading) {
-            return <p>Loading...</p>
-        }
-    }
+    const token = Cookies.get('token')
+    const router = useRouter()
 
     const toggleAuth = (state: 'signup' | 'signin') => {
         setAuth(state)
@@ -41,16 +39,6 @@ function Auth() {
         if (auth === 'signin') {
             signIn(formData.email, formData.password)
         }else {
-            const response = await fetch('/api/customers', {
-                method: "POST",
-                headers: {"Content-type": "application/json"},
-                body: JSON.stringify({email: formData.email})
-            })
-
-            const data = await response.json()
-
-            console.log(data)
-
             signUp(formData.email, formData.password)
         }
     }
@@ -110,5 +98,18 @@ function Auth() {
     )
 }
 
-export default Auth
 
+export const getServerSideProps: GetServerSideProps = async ({req}) => {
+    const token = req.cookies.user_id
+
+    if (token) {
+        return {
+            redirect: {destination: '/', permanent: false}
+        }
+    }
+
+
+    return {
+        props: {}
+    }
+}

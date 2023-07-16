@@ -17,11 +17,11 @@ export default async function handler(
 
     if (method === 'POST') {
         try {
-            const {email} = req.body
-            const stripe = require('stripe')('sk_test_51NSetQBKDAx00Tu4mvUw10OauUj3SvTCJG32YtuW1ecSavlF76rSCWe4uKKEwuPFbi7HzLsrCOLfXeVD8IvP74E600CrsDnTxl');
+            const {email, token} = req.body
 
             await stripe.customers.create({
-                email
+                email,
+                metadata: {token}
             })
 
             res.status(200).json({message: "Success"})

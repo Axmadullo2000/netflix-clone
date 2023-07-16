@@ -38,8 +38,6 @@ const AuthContextProvider = ({children}: {children: ReactNode}) => {
     // eslint-disable-next-line
     }), [user, isLoading, error])
 
-    const router = useRouter()
-
 
     useEffect(
         () =>
@@ -47,8 +45,6 @@ const AuthContextProvider = ({children}: {children: ReactNode}) => {
                 if (user) {
                     setUser(user)
                 }else {
-                    router.push('/auth')
-                    setIsLoading(true)
                     setUser(null)
                 }
 
@@ -58,7 +54,7 @@ const AuthContextProvider = ({children}: {children: ReactNode}) => {
     // eslint-disable-next-line
     }), [])
 
-    return <AuthContext.Provider value={value}>{!initialLoader && children}</AuthContext.Provider>
+    return <AuthContext.Provider value={value}>{!initialLoader ? children : null}</AuthContext.Provider>
 }
 
 export default AuthContextProvider

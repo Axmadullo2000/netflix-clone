@@ -7,7 +7,7 @@ const api_key = process.env.NEXT_SECRET_API_KEY as string
 
 const stripe = new Stripe(api_key, {
   apiVersion: '2022-11-15',
-});
+})
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,13 +17,11 @@ export default async function handler(
 
   if (method === 'GET') {
     try {
-      const stripe = require('stripe')('sk_test_51NSetQBKDAx00Tu4mvUw10OauUj3SvTCJG32YtuW1ecSavlF76rSCWe4uKKEwuPFbi7HzLsrCOLfXeVD8IvP74E600CrsDnTxl')
-
       const products = await stripe.products.list({
         expand: ['data.default_price']
       })
 
-      res.status(200).json(products)
+      res.status(200).json({products})
     }catch (e) {
       const error = e as Error
       res.status(400).json({message: error.message})
