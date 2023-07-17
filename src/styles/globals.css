@@ -47,7 +47,10 @@ div::-webkit-scrollbar-thumb {
     }
 
     .acc_btn {
-        @apply text-slate-100 border-2 border-slate-50 px-2 py-1 mb-2
+        @apply text-slate-100 border-2 border-slate-50 px-2 py-1 mb-2 transition-opacity
+    }
+    .acc_btn:hover {
+        @apply bg-slate-50 text-red-500
     }
 }
 

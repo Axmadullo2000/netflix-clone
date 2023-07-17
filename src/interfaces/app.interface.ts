@@ -35,3 +35,28 @@ export interface Products {
     }
     name: string,
 }
+
+
+export interface ISubscription {
+    current_period_start: number,
+    current_period_end: number,
+    id: string,
+    plan: {
+        amount: number,
+        active: boolean,
+        nickname: string
+    },
+    default_payment_method: {
+        card: {
+            brand: string,
+            exp_month: number,
+            exp_year: number,
+            last_four: string
+        }
+    },
+    customer: {
+        email: string
+    }
+}
+
+
