@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 import * as process from "process";
 
 
-const api_key = process.env.NEXT_SECRET_API_KEY as string
+const api_key = "sk_test_51NSetQBKDAx00Tu4mvUw10OauUj3SvTCJG32YtuW1ecSavlF76rSCWe4uKKEwuPFbi7HzLsrCOLfXeVD8IvP74E600CrsDnTxl" as string
 
 const stripe = new Stripe(api_key, {
     apiVersion: '2022-11-15',
@@ -17,7 +17,7 @@ export default async function handler(
 
     if (method === 'POST') {
         try {
-            const base_url = process.env.NEXT_PUBLIC_LOCAL_DOMAIN as string
+            const base_url = process.env.NEXTPUBLICLOCALDOMAIN as string
 
             const {email, priceId} = req.body
             const customers = await stripe.customers.list({limit: 100})

@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 import * as process from "process";
 
 
-const api_key = process.env.NEXT_SECRET_API_KEY as string
+const api_key = process.env.NEXTSECRETAPIKEY as string
 
 const stripe = new Stripe(api_key, {
     apiVersion: '2022-11-15',
