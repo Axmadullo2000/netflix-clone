@@ -51,12 +51,19 @@ export interface ISubscription {
             brand: string,
             exp_month: number,
             exp_year: number,
-            last_four: string
+            last4: string
         }
     },
     customer: {
-        email: string
+        email: string,
+        metadata: {
+            token: string
+        }
     }
 }
 
+export interface MyList {
+    token: string,
+    product: IMovies
+}
 

@@ -61,6 +61,7 @@ function Row({movies, title, isBig=false}: RowProps) {
                         {movies.map(movie => (
                             <SwiperSlide key={movie.id} onClick={() => handleCurrentMovie(movie.name)}>
                                 <Image
+                                    className={'w-full'}
                                     width={isBig ? 800 : 600}
                                     height={400} src={`${image_base}/${movie.poster_path || movie.backdrop_path}`}
                                     alt={movie.name} />

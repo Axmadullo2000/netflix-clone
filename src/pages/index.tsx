@@ -1,7 +1,8 @@
 import Head from "next/head";
 import {GetServerSideProps} from "next";
 import Cookies from "js-cookie";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
+import {useRouter} from "next/router";
 
 
 import {IMovies, Products} from "@/interfaces/app.interface";
@@ -9,13 +10,28 @@ import {Header, Hero, Row, Modal} from './components';
 import {userInfoState} from "@/store";
 import SubscriptionList from "@/pages/components/SubscriptionList";
 import {AuthContext} from "@/context/auth.context";
-import {useRouter} from "next/router";
+import {getList} from "@/helpers/list";
 
 
 export default function Home({trending, tv, products,subscription}: HomeProps) {
     const {modal} = userInfoState()
     const {user} = useContext(AuthContext)
     const router = useRouter()
+    const [myList, setMyList] = useState<IMovies[]>([])
+    const token = Cookies.get('token')
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const data = await getList(user?.uid)
+            const array = data.map(item => item.product) as IMovies[]
+            setMyList(array)
+        }
+
+        fetchData()
+
+        // eslint-disable-next-line
+    }, [])
+
 
     if (!subscription.length) return <SubscriptionList products={products} />
 
@@ -40,6 +56,7 @@ export default function Home({trending, tv, products,subscription}: HomeProps) {
                 <section>
                     <Row movies={tv} title={'TV '} isBig={false}/> {/* tv shows */}
                     <Row movies={tv} title={'TV'} isBig={true}/> {/* tv shows */}
+                    <Row movies={myList} title={'My List'} isBig={true} /> {/* tv shows */}
                 </section>
             </main>
 
@@ -61,6 +78,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({req}) =
         fetch(`http://localhost:3000/api/subscription/${token}`).then(res => res.json())
     ])
 
+
     return {
         props: {
             trending: trending.results,
@@ -73,9 +91,9 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({req}) =
 
 
 interface HomeProps {
-    trending: IMovies[],
-    tv: IMovies[],
-    products: Products[],
-    subscription: string[]
+    trending: IMovies[];
+    tv: IMovies[];
+    products: Products[];
+    subscription: string[];
 }
 

@@ -1,17 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import {CiUser} from "react-icons/ci";
 import {AiOutlineYoutube} from "react-icons/ai";
+import moment from "moment";
 import {GetServerSideProps} from "next";
 
+
 import {ISubscription} from "@/interfaces/app.interface";
-import moment from "moment";
 
 
 function Account({subscription}: AccountProps) {
-    console.log(subscription)
+    const [isLoading, setIsLoading] = useState(false)
+
+    const openPortal = async () => {
+        setIsLoading(true)
+        const response = await fetch('/api/subscription/manage/', {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({token: subscription.customer.metadata.token})
+        })
+
+        const data = await response.json()
+
+        window.open(data.portal)
+        setIsLoading(false)
+    }
 
 
     return (
@@ -35,7 +50,7 @@ function Account({subscription}: AccountProps) {
                     <div className={'flex md:w-[800px] w-full justify-center border-2 mt-3 mx-auto border-slate-200 gap-4 px-3 py-3'}>
                         <div className={'border-slate-200 border-r-2 pr-2'}>
                             <p className={'text-slate-100'}>Member & Billing</p>
-                            <button className={'acc_btn mt-4'}>Cancel Membership</button>
+                            <button onClick={openPortal} className={'acc_btn mt-4'}>{isLoading ? "Loading..." : "Cancel Membership" }</button>
                         </div>
                         <div>
                             <div className={'flex flex-col md:flex-row justify-between gap-4 border-b-2 border-slate-200 pb-4'}>
@@ -49,13 +64,19 @@ function Account({subscription}: AccountProps) {
                                     <button className={'acc_btn'}>Change password</button>
                                 </div>
                             </div>
-                            <div className={'flex mt-4 gap-5'}>
-                                <p className={'text-slate-100'}>Your membership plan will end {moment(subscription.current_period_end * 1000).format("DD MMM yyy")} </p>
+                            <div className={'flex items-baseline mt-4 gap-5'}>
+                                <div>
+                                    <p className={'mt-2'}>
+                                        <span className={'px-4 py-2 font-mono text-xl uppercase text-slate-100 bg-black/20'}>{subscription.default_payment_method.card.brand}</span>
+                                        <span className={'text-slate-100 ml-2'}>**** **** **** {subscription.default_payment_method.card.last4}</span>
+                                    </p>
+                                    <p className={'text-slate-100 mt-3'}>Your membership plan will end {moment(subscription.current_period_end * 1000).format("DD MMM yyy")} </p>
+                                </div>
                                 <div className={'flex flex-col'}>
-                                    <button className={'acc_btn'}>Manage payment info</button>
-                                    <button className={'acc_btn'}>Add backup payment method</button>
-                                    <button className={'acc_btn'}>Billing detail</button>
-                                    <button className={'acc_btn'}>Change billing day</button>
+                                    <button onClick={openPortal} className={'acc_btn'}>{isLoading ? "Loading..." : "Manage payment info"}</button>
+                                    <button onClick={openPortal} className={'acc_btn'}>{isLoading ? "Loading" : 'Add backup payment method'}</button>
+                                    <button onClick={openPortal} className={'acc_btn'}>{isLoading ? "Loading" : "Billing detail"}</button>
+                                    <button onClick={openPortal} className={'acc_btn'}>{isLoading ? "Loading" : "Change billing day"}</button>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +84,7 @@ function Account({subscription}: AccountProps) {
                     <div className={'flex flex-col md:flex-row md:w-[800px] w-full justify-between border-2 mt-3 mx-auto border-slate-200 gap-4 px-3 py-3'}>
                         <p className={'text-slate-100'}>Plan Detail</p>
                         <p className={'text-slate-100 font-bold text-xl'}>{subscription.plan.nickname}</p>
-                        <button className={'acc_btn'}>Change Plan</button>
+                        <button onClick={openPortal} className={'acc_btn'}>{isLoading ? "Loading" : 'Change Plan'}</button>
                     </div>
                     <div className={'flex w-full md:w-[800px] justify-between border-2 mt-3 mx-auto border-slate-200 gap-4 px-3 py-3'}>
                         <p className={'text-slate-100'}>Settings</p>
@@ -84,6 +105,12 @@ export const getServerSideProps: GetServerSideProps<AccountProps> = async ({req}
 
     const data = await fetch(`http://localhost:3000/api/subscription/${token}`).then(res => res.json())
 
+    if (!data.subscription.data.length) {
+        return {
+            redirect: {destination: '/', permanent: false}
+        }
+    }
+
     return {
         props: {
             subscription: data.subscription.data[0]
@@ -95,7 +122,3 @@ export const getServerSideProps: GetServerSideProps<AccountProps> = async ({req}
 interface AccountProps {
     subscription: ISubscription
 }
-
-
-
-
