@@ -12,7 +12,6 @@ import SubscriptionList from "@/pages/components/SubscriptionList";
 import {AuthContext} from "@/context/auth.context";
 import {getList} from "@/helpers/list";
 
-
 export default function Home({trending, tv, products,subscription}: HomeProps) {
     const {modal} = userInfoState()
     const {user} = useContext(AuthContext)
@@ -96,4 +95,5 @@ interface HomeProps {
     products: Products[];
     subscription: string[];
 }
+
 

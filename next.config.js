@@ -10,7 +10,7 @@ const nextConfig = {
   images: {
     domains: ['image.tmdb.org', 'files.stripe.com', 'rb.gy', 'img.freepik.com']
   },
-  pageExtensions: ['plan-card.props.ts', 'row.props.ts', 'subscription-list.props.ts', 'hero.props.ts', 'hero.props.ts', 'text-fields.props.ts']
+ pageExtensions: ['row.props.ts', 'plan-card.props.ts', 'hero.props.ts', 'subscription-list.props', 'text-field.props', '']
 }
 
 module.exports = nextConfig
