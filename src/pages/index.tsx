@@ -8,9 +8,10 @@ import {useRouter} from "next/router";
 import {IMovies, Products} from "@/interfaces/app.interface";
 import {Header, Hero, Row, Modal} from './components';
 import {userInfoState} from "@/store";
-import SubscriptionList from "@/pages/components/SubscriptionList";
+import {SubscriptionList} from "@/pages/components";
 import {AuthContext} from "@/context/auth.context";
-import {getList} from "@/helpers/list";
+import getList from "@/helpers/list";
+
 
 export default function Home({trending, tv, products,subscription}: HomeProps) {
     const {modal} = userInfoState()

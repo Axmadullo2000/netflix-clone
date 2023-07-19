@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {DetailedHTMLProps, InputHTMLAttributes} from 'react';
 import {useField, FieldHookConfig, Field, ErrorMessage} from "formik";
 
-import {TextFieldProps} from "@/pages/components/TextField/text-field.props";
+export interface TextFieldProps extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {}
 
 
 function TextField({ ...props }:TextFieldProps & FieldHookConfig<string>) {

@@ -12,7 +12,6 @@ import {useRouter} from "next/router";
 import Cookies from "js-cookie";
 
 
-
 export default function Auth() {
     const [auth, setAuth] = useState<'signup' | 'signin'>('signin')
     const {isLoading, error, signIn, signUp} = useContext(AuthContext)

@@ -3,9 +3,14 @@ import Link from "next/link";
 import Image from "next/image";
 
 
-import {SubscriptionListProps} from "@/pages/components/SubscriptionList/subscription-list.props";
-import PlanCard from "@/pages/components/Plan-Card";
+import {PlanCard} from "@/pages/components";
 import useAuth from "@/hooks/useAuth";
+import {Products} from "@/interfaces/app.interface";
+
+
+export interface SubscriptionListProps {
+    products: Products[]
+}
 
 
 function SubscriptionList ({products}: SubscriptionListProps) {

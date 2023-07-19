@@ -3,10 +3,14 @@ import ReactStars from 'react-stars'
 import Image from "next/image";
 
 import {IMovies} from "@/interfaces/app.interface";
-import {HeroProps} from "@/pages/components/Hero/hero.props";
 import {image_base} from "@/helpers/constants";
 import {userInfoState} from "@/store";
 import {BsFillPlayFill} from "react-icons/bs";
+
+
+export interface HeroProps {
+    trending: IMovies[]
+}
 
 
 function Hero({trending}: HeroProps) {

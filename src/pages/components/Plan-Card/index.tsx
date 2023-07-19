@@ -4,8 +4,13 @@ import {RiVipCrown2Line} from "react-icons/ri";
 import {CgSandClock} from "react-icons/cg";
 import {PiVideoBold} from "react-icons/pi";
 
-import {PlanCardProps} from "@/pages/components/Plan-Card/plan-card.props";
 import {AuthContext} from "@/context/auth.context";
+import {Products} from "@/interfaces/app.interface";
+
+
+export interface PlanCardProps {
+    product: Products
+}
 
 
 function PlanCard({product}: PlanCardProps) {

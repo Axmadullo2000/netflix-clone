@@ -26,6 +26,7 @@ export const AuthContext = createContext<AuthContextState>({
 })
 
 
+
 const AuthContextProvider = ({children}: {children: ReactNode}) => {
     const [initialLoader, setInitialLoader] = useState<boolean>(true)
 

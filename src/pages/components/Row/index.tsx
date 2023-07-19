@@ -4,7 +4,6 @@ import ReactStars from 'react-stars'
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation, Pagination} from "swiper";
 
-import {RowProps} from "@/pages/components/Row/row.props"
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -12,6 +11,14 @@ import 'swiper/css/pagination';
 
 import {image_base} from "@/helpers/constants";
 import {userInfoState} from "@/store";
+import {IMovies} from "@/interfaces/app.interface";
+
+export interface RowProps {
+    movies: IMovies[],
+    title: string,
+    isBig: boolean
+}
+
 
 
 function Row({movies, title, isBig=false}: RowProps) {
