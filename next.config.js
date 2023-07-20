@@ -3,9 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ['image.tmdb.org', 'files.stripe.com', 'rb.gy', 'img.freepik.com']
-  },
-  pageExtensions: ['mdx', 'md', 'jsx', 'js', 'tsx', 'ts']
+  }
 }
 
 module.exports = nextConfig
-

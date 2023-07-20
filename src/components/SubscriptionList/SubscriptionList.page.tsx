@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
 
 
-import {PlanCard} from "@/pages/components";
+import {PlanCard} from "../";
 import useAuth from "@/hooks/useAuth";
 import {Products} from "@/interfaces/app.interface";
 
@@ -14,7 +14,6 @@ export interface SubscriptionListProps {
 
 
 function SubscriptionList ({products}: SubscriptionListProps) {
-    const [buy, setBuy] = useState(true)
     const {logout} = useAuth()
 
 

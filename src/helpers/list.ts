@@ -15,5 +15,3 @@ export default async function getList (token?: string) {
 
     return myList
 }
-
-

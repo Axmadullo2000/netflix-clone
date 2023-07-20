@@ -29,8 +29,6 @@ function PlanCard({product}: PlanCardProps) {
         const data = await response.json()
 
         window.open(data.subscription.url)
-
-        console.log(data)
     }
 
 

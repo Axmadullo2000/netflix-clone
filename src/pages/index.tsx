@@ -6,11 +6,11 @@ import {useRouter} from "next/router";
 
 
 import {IMovies, Products} from "@/interfaces/app.interface";
-import {Header, Hero, Row, Modal} from './components';
 import {userInfoState} from "@/store";
-import {SubscriptionList} from "@/pages/components";
 import {AuthContext} from "@/context/auth.context";
 import getList from "@/helpers/list";
+import {Header, Hero, Row, Modal} from '../components';
+import {SubscriptionList} from "../components";
 
 
 export default function Home({trending, tv, products,subscription}: HomeProps) {
@@ -18,7 +18,6 @@ export default function Home({trending, tv, products,subscription}: HomeProps) {
     const {user} = useContext(AuthContext)
     const router = useRouter()
     const [myList, setMyList] = useState<IMovies[]>([])
-    const token = Cookies.get('token')
 
     useEffect(() => {
         const fetchData = async () => {

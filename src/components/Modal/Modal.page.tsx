@@ -50,9 +50,7 @@ function Modal() {
 
             router.replace(router.asPath)
             window.location.reload()
-            console.log(docRef)
         }catch (e) {
-            console.log(e)
         }
     }
 

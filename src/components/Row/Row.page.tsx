@@ -20,7 +20,6 @@ export interface RowProps {
 }
 
 
-
 function Row({movies, title, isBig=false}: RowProps) {
     const {setModal, setCurrentMovie, currentMovie} = userInfoState()
     const swiperRef = useRef(null);

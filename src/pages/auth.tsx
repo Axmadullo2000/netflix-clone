@@ -6,18 +6,13 @@ import * as Yup from 'yup'
 import {GetServerSideProps} from "next";
 
 
-import {TextField} from "src/pages/components";
+import {TextField} from "../components";
 import {AuthContext} from "@/context/auth.context";
-import {useRouter} from "next/router";
-import Cookies from "js-cookie";
 
 
 export default function Auth() {
     const [auth, setAuth] = useState<'signup' | 'signin'>('signin')
     const {isLoading, error, signIn, signUp} = useContext(AuthContext)
-
-    const token = Cookies.get('token')
-    const router = useRouter()
 
     const toggleAuth = (state: 'signup' | 'signin') => {
         setAuth(state)

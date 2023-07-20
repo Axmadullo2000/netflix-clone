@@ -1,7 +1,0 @@
-export {default as Header} from './Header'
-export {default as Hero} from './Hero'
-export {default as Modal} from './Modal'
-export {default as PlanCard} from './Plan-Card'
-export {default as Row} from './Row'
-export {default as SubscriptionList} from './SubscriptionList'
-export {default as TextField} from './TextField'
