@@ -11,6 +11,7 @@ import {AuthContext} from "@/context/auth.context";
 import getList from "@/helpers/list";
 import {Header, Hero, Row, Modal} from '../components';
 import {SubscriptionList} from "../components";
+import {API_REQUEST} from "@/services/api.service";
 
 
 export default function Home({trending, tv, products,subscription}: HomeProps) {
@@ -73,7 +74,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({req}) =
     const [trending, tv, products, subscription] = await Promise.all([
         fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=81602ea33120c8e6b0c0454800142742').then(res => res.json()),
         fetch('https://api.themoviedb.org/3/trending/tv/day?api_key=81602ea33120c8e6b0c0454800142742').then(res => res.json()),
-        fetch(API_REQUEST.products_list).then(res => res.json()),
+        fetch(`${API_REQUEST.products_list}`).then(res => res.json()),
         fetch(`${API_REQUEST.subscription}/${token}`).then(res => res.json())
     ])
 
