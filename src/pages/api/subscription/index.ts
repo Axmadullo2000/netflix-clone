@@ -17,7 +17,7 @@ export default async function handler(
 
     if (method === 'POST') {
         try {
-            const base_url = process.env.NEXTPUBLICLOCALDOMAIN as string
+            const base_url = process.env.NEXT_PUBLIC_DOMAIN as string
 
             const {email, priceId} = req.body
             const customers = await stripe.customers.list({limit: 100})

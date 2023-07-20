@@ -15,16 +15,17 @@ import {API_REQUEST} from "@/services/api.service";
 function Account({subscription}: AccountProps) {
     const [isLoading, setIsLoading] = useState(false)
 
-
     const openPortal = async () => {
         setIsLoading(true)
         const response = await fetch('/api/subscription/manage/', {
             method: 'POST',
-            headers: {'Content-type': 'application/json'},
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({token: subscription.customer.metadata.token})
         })
 
         const data = await response.json()
+
+        console.log(data)
 
         window.open(data.portal)
         setIsLoading(false)

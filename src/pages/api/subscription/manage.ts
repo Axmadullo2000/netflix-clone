@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import Stripe from 'stripe';
 import * as process from "process";
 
-
 const api_key = process.env.NEXTSECRETAPIKEY as string
 
 const stripe = new Stripe(api_key, {
@@ -22,7 +21,6 @@ export default async function handler(
             const customers = await stripe.customers.list({ limit: 100 })
             const customer = customers.data.find(c => c.metadata.token === token) as Stripe.Customer
 
-
             const portal = await stripe.billingPortal.sessions.create({
                 customer: customer.id,
                 return_url: '/account'
@@ -33,7 +31,6 @@ export default async function handler(
             const error = e as Error
             return res.status(400).json({message: error.message})
         }
-
     }
 }
 

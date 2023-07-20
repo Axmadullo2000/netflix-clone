@@ -27,7 +27,6 @@ export default async function handler(
 }
 
 
-
 type Data = {
     message?: string,
     subscription?: Stripe.Response<Stripe.ApiList<Stripe.Subscription>>
