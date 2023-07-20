@@ -14,6 +14,7 @@ import {ISubscription} from "@/interfaces/app.interface";
 function Account({subscription}: AccountProps) {
     const [isLoading, setIsLoading] = useState(false)
 
+
     const openPortal = async () => {
         setIsLoading(true)
         const response = await fetch('/api/subscription/manage/', {
@@ -103,7 +104,7 @@ export default Account;
 export const getServerSideProps: GetServerSideProps<AccountProps> = async ({req}) => {
     const token = req.cookies.user_id
 
-    const data = await fetch(`http://localhost:3000/api/subscription/${token}`).then(res => res.json())
+    const data = await fetch(`${API_REQUEST.subscription}/${token}`).then(res => res.json())
 
     if (!data.subscription.data.length) {
         return {

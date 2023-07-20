@@ -73,8 +73,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({req}) =
     const [trending, tv, products, subscription] = await Promise.all([
         fetch('https://api.themoviedb.org/3/trending/movie/week?api_key=81602ea33120c8e6b0c0454800142742').then(res => res.json()),
         fetch('https://api.themoviedb.org/3/trending/tv/day?api_key=81602ea33120c8e6b0c0454800142742').then(res => res.json()),
-        fetch('http://localhost:3000/api/products').then(res => res.json()),
-        fetch(`http://localhost:3000/api/subscription/${token}`).then(res => res.json())
+        fetch(API_REQUEST.products_list).then(res => res.json()),
+        fetch(`${API_REQUEST.subscription}/${token}`).then(res => res.json())
     ])
 
     return {
