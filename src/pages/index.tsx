@@ -77,7 +77,6 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({req}) =
         fetch(`http://localhost:3000/api/subscription/${token}`).then(res => res.json())
     ])
 
-
     return {
         props: {
             trending: trending.results,
