@@ -9,6 +9,7 @@ import {GetServerSideProps} from "next";
 
 
 import {ISubscription} from "@/interfaces/app.interface";
+import {API_REQUEST} from "@/services/api.service";
 
 
 function Account({subscription}: AccountProps) {
